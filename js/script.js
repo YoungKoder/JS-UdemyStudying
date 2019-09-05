@@ -1,7 +1,7 @@
-let money = prompt("Ваш бюджет на месяц?", ""),
+let money = +prompt("Ваш бюджет на месяц?", ""),
     time = prompt("Введите дату в формате YYYY-MM-DD","");
     
-let appData = {
+var appData = {
     budget: money,
     timeData: time,
     expenses:{},
@@ -10,9 +10,27 @@ let appData = {
     savings:false
 };
 
-let listExpense = prompt("Введите обязательную статью расходов в этом месяце", ''),
-    cost = prompt("Во сколько обойдется?", '');
+for(let i=0; i<2; i++){
+    let listExpense = prompt("Введите обязательную статью расходов в этом месяце", ''),
+        cost = +prompt("Во сколько обойдется?", '');
+    if ( (typeof(listExpense)) != null && (typeof(cost)) != null && listExpense != '' && cost !=''){
+        appData.expenses[listExpense] = cost;
+    }
+    else{
+        alert("error, all fields must be filled");
+        i--; 
+    }  
+};
 
-appData.expenses.listExpense = cost;
+appData.moneyPerDay = appData.budget/30;
+alert('бюджет на день:' + appData.moneyPerDay)
 
-alert("Ваш бюджет на месяц:" + appData.budget/30);
+if(appData.moneyPerDay <100){
+    console.log("Minimum");
+}else if(appData.moneyPerDay>100 && appData.moneyPerDay<2000){
+    console.log("middle");
+}else if(appData.moneyPerDay>2000){
+    console.log("Hight");
+}else {
+    console.log("smth went wrong");
+}
